@@ -150,34 +150,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueBox: {fileID: 1437676594}
   dialogueText: {fileID: 293847348}
-  objectsToActivateAfterDialogue:
-  - {fileID: 2002741671}
-  dialogueLines:
-  - "A music staff is where notes are written. \r\nIt has five horizontal lines and
-    four spaces. \r\nNotes can be placed on the lines or in the spaces."
-  - Ready for more?
-  - 'The treble clef is a symbol placed at the beginning of the staff.
+  answerButtons: []
+  nextButton: {fileID: 2002741671}
+  introDialogueLines:
+  - "Music Staff\r\nA music staff is where notes are written. \r\nIt has five horizontal
+    lines and four spaces. \r\nNotes can be placed on the lines or in the spaces."
+  - 'Treble Clef
 
-    It tells
-    the player how to read the notes on that staff.
+    The treble clef is a symbol placed at the beginning of the
+    staff.
 
-    Guitar music is usually
-    written in treble clef.'
-  - Ready for more?
-  - "A beat is the steady count in music.\r\nIt is like the pulse of a song.\r\nWhen
+    It tells the player how to read the notes on that staff.
+
+    Guitar
+    music is usually written in treble clef.'
+  - "Beats\r\nA beat is the steady count in music.\r\nIt is like the pulse of a song.\r\nWhen
     you count \u201C1, 2, 3, 4,\u201D each number is one beat."
-  - Ready for more?
-  - 'Notes tell the player when to play a sound and how long to hold it.
+  - 'Notes (quarter, half, whole ONLY)
 
-    We
-    will learn three notes: a quarter note, a half note, and a whole note.'
-  - Ready for more?
-  - "Rests tell the player when to stay silent. \r\nA rest still counts as part of
-    the beat, even though no sound is played."
-  - Ready for more?
-  - "A time signature tells the player how many beats fit inside one measure. \r\nWe
-    will learn only 1 simple time signature 4/4 time."
-  - Now let's put our new knowledge to the test!
+    Notes tell the player when to play a
+    sound and how long to hold it.
+
+    We will learn three notes: a quarter note,
+    a half note, and a whole note.'
+  - "Rests\r\nRests tell the player when to stay silent. \r\nA rest still counts
+    as part of the beat, even though no sound is played."
+  - "Time Signatures\r\nA time signature tells the player how many beats fit inside
+    one measure. \r\nWe will learn only 1 simple time signature 4/4 time."
+  correctDialogueLines: []
+  incorrectDialogueLines: []
   typeSpeed: 0.04
 --- !u!4 &213903424
 Transform:
