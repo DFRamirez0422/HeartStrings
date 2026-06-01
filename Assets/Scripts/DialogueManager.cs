@@ -8,29 +8,48 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private Text dialogueText;
 
-    [Header("Continue Button")]
-    [SerializeField] private GameObject continueButton;
+    [Header("Answer Buttons")]
+    [SerializeField] private GameObject[] answerButtons;
+
+    [Header("Next Button")]
+    [SerializeField] private GameObject nextButton;
+
+    [Header("Intro Dialogue")]
+    [TextArea(2, 5)]
+    [SerializeField] private string[] introDialogueLines;
+
+    [Header("Feedback Dialogue")]
+    [TextArea(2, 5)]
+    [SerializeField] private string[] correctDialogueLines;
+
+    [TextArea(2, 5)]
+    [SerializeField] private string[] incorrectDialogueLines;
 
     [Header("Dialogue Settings")]
-    [TextArea(2, 5)]
-    [SerializeField] private string[] dialogueLines;
     [SerializeField] private float typeSpeed = 0.04f;
 
+    private string[] currentDialogueLines;
     private int currentLineIndex = 0;
+
     private bool isTyping = false;
     private bool dialogueFinished = false;
+    private bool showingFeedback = false;
+    private bool lastAnswerWasCorrect = false;
+
     private Coroutine typingCoroutine;
 
     private void Start()
     {
         dialogueBox.SetActive(true);
 
-        if (continueButton != null)
+        SetObjectsActive(answerButtons, false);
+
+        if (nextButton != null)
         {
-            continueButton.SetActive(false);
+            nextButton.SetActive(false);
         }
 
-        StartDialogue();
+        StartDialogue(introDialogueLines, false);
     }
 
     private void Update()
@@ -46,9 +65,14 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void StartDialogue()
+    private void StartDialogue(string[] lines, bool isFeedback)
     {
+        currentDialogueLines = lines;
         currentLineIndex = 0;
+        dialogueFinished = false;
+        showingFeedback = isFeedback;
+
+        dialogueBox.SetActive(true);
         ShowLine();
     }
 
@@ -56,16 +80,15 @@ public class DialogueManager : MonoBehaviour
     {
         if (isTyping)
         {
-            // If player presses while text is typing, instantly finish the line
             StopCoroutine(typingCoroutine);
-            dialogueText.text = dialogueLines[currentLineIndex];
+            dialogueText.text = currentDialogueLines[currentLineIndex];
             isTyping = false;
         }
         else
         {
             currentLineIndex++;
 
-            if (currentLineIndex < dialogueLines.Length)
+            if (currentLineIndex < currentDialogueLines.Length)
             {
                 ShowLine();
             }
@@ -78,7 +101,7 @@ public class DialogueManager : MonoBehaviour
 
     private void ShowLine()
     {
-        typingCoroutine = StartCoroutine(TypeLine(dialogueLines[currentLineIndex]));
+        typingCoroutine = StartCoroutine(TypeLine(currentDialogueLines[currentLineIndex]));
     }
 
     private IEnumerator TypeLine(string line)
@@ -100,9 +123,52 @@ public class DialogueManager : MonoBehaviour
         dialogueFinished = true;
         dialogueBox.SetActive(false);
 
-        if (continueButton != null)
+        if (!showingFeedback)
         {
-            continueButton.SetActive(true);
+            // Intro dialogue finished, show answer buttons
+            SetObjectsActive(answerButtons, true);
+            return;
+        }
+
+        if (lastAnswerWasCorrect)
+        {
+            // Correct answer finished, show next button
+            if (nextButton != null)
+            {
+                nextButton.SetActive(true);
+            }
+        }
+        else
+        {
+            // Wrong answer finished, let player try again
+            SetObjectsActive(answerButtons, true);
+        }
+    }
+
+    public void SelectAnswer(bool isCorrect)
+    {
+        SetObjectsActive(answerButtons, false);
+
+        lastAnswerWasCorrect = isCorrect;
+
+        if (isCorrect)
+        {
+            StartDialogue(correctDialogueLines, true);
+        }
+        else
+        {
+            StartDialogue(incorrectDialogueLines, true);
+        }
+    }
+
+    private void SetObjectsActive(GameObject[] objects, bool active)
+    {
+        foreach (GameObject obj in objects)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(active);
+            }
         }
     }
 }

@@ -150,7 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueBox: {fileID: 1437676594}
   dialogueText: {fileID: 293847348}
-  continueButton: {fileID: 2002741671}
+  objectsToActivateAfterDialogue:
+  - {fileID: 2002741671}
   dialogueLines:
   - "A music staff is where notes are written. \r\nIt has five horizontal lines and
     four spaces. \r\nNotes can be placed on the lines or in the spaces."
