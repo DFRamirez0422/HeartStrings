@@ -836,8 +836,8 @@ MonoBehaviour:
     teachingLines:
     - 'A half rest tells the player to stay silent for 2 beats.
 
-      It lasts
-      longer than a quarter rest.'
+      It lasts longer
+      than a quarter rest.'
     questionText: How many beats does a half rest get?
     answerA: 1 beat
     answerB: 2 beats
@@ -963,11 +963,11 @@ MonoBehaviour:
     teachingLines:
     - 'Notes and rests can be used together in the same measure.
 
-      It does
-      not matter if the beat is sound or silence.
+      It does not
+      matter if the beat is sound or silence.
 
-      The total still needs to
-      equal 4 beats.'
+      The total still needs to equal
+      4 beats.'
     questionText: "What notes/rests complete the measure?\t"
     answerA: 1 half note
     answerB: 1 quarter note
@@ -1311,7 +1311,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f4ef68040c47164458bb88d6d46bbd5c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b4dcc79145865cc49a9f079464ba4437, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

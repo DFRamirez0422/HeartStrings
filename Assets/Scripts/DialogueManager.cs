@@ -25,6 +25,9 @@ public class DialogueManager : MonoBehaviour
         [Tooltip("Use 0 for A, 1 for B, 2 for C")]
         public int correctAnswerIndex;
 
+        [Tooltip("Optional second correct answer. Use -1 if there is no second correct answer.")]
+        public int secondCorrectAnswerIndex = -1;
+
         [Header("Feedback")]
         [TextArea(2, 5)]
         public string[] correctFeedbackLines;
@@ -218,7 +221,10 @@ public class DialogueManager : MonoBehaviour
 
         HideQuestionUI();
 
-        lastAnswerWasCorrect = answerIndex == currentQuestion.correctAnswerIndex;
+        lastAnswerWasCorrect =
+            answerIndex == currentQuestion.correctAnswerIndex ||
+            answerIndex == currentQuestion.secondCorrectAnswerIndex;
+
         showingFeedback = true;
 
         if (lastAnswerWasCorrect)
