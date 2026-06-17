@@ -4,35 +4,60 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class Question
+    {
+        [Header("Teaching Dialogue Before Question")]
+        [TextArea(2, 5)]
+        public string[] teachingLines;
+
+        [Header("Question")]
+        [TextArea(2, 5)]
+        public string questionText;
+
+        public string answerA;
+        public string answerB;
+        public string answerC;
+
+        [Tooltip("Use 0 for A, 1 for B, 2 for C")]
+        public int correctAnswerIndex;
+
+        [Header("Feedback")]
+        [TextArea(2, 5)]
+        public string[] correctFeedbackLines;
+
+        [TextArea(2, 5)]
+        public string[] incorrectFeedbackLines;
+    }
+
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private Text dialogueText;
 
+    [Header("Question UI")]
+    [SerializeField] private GameObject questionBox;
+    [SerializeField] private Text questionText;
+
     [Header("Answer Buttons")]
     [SerializeField] private GameObject[] answerButtons;
+    [SerializeField] private Text[] answerButtonTexts;
 
     [Header("Next Button")]
     [SerializeField] private GameObject nextButton;
 
-    [Header("Intro Dialogue")]
-    [TextArea(2, 5)]
-    [SerializeField] private string[] introDialogueLines;
-
-    [Header("Feedback Dialogue")]
-    [TextArea(2, 5)]
-    [SerializeField] private string[] correctDialogueLines;
-
-    [TextArea(2, 5)]
-    [SerializeField] private string[] incorrectDialogueLines;
+    [Header("Questions")]
+    [SerializeField] private Question[] questions;
 
     [Header("Dialogue Settings")]
     [SerializeField] private float typeSpeed = 0.04f;
 
-    private string[] currentDialogueLines;
+    private int currentQuestionIndex = 0;
     private int currentLineIndex = 0;
 
+    private string[] currentDialogueLines;
+
     private bool isTyping = false;
-    private bool dialogueFinished = false;
+    private bool dialogueActive = false;
     private bool showingFeedback = false;
     private bool lastAnswerWasCorrect = false;
 
@@ -40,21 +65,20 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
-        dialogueBox.SetActive(true);
-
-        SetObjectsActive(answerButtons, false);
-
         if (nextButton != null)
         {
             nextButton.SetActive(false);
         }
 
-        StartDialogue(introDialogueLines, false);
+        HideQuestionUI();
+
+        currentQuestionIndex = 0;
+        StartTeachingForCurrentQuestion();
     }
 
     private void Update()
     {
-        if (dialogueFinished)
+        if (!dialogueActive)
         {
             return;
         }
@@ -65,12 +89,23 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void StartDialogue(string[] lines, bool isFeedback)
+    private void StartTeachingForCurrentQuestion()
+    {
+        if (currentQuestionIndex >= questions.Length)
+        {
+            EndAllQuestions();
+            return;
+        }
+
+        showingFeedback = false;
+        StartDialogue(questions[currentQuestionIndex].teachingLines);
+    }
+
+    private void StartDialogue(string[] lines)
     {
         currentDialogueLines = lines;
         currentLineIndex = 0;
-        dialogueFinished = false;
-        showingFeedback = isFeedback;
+        dialogueActive = true;
 
         dialogueBox.SetActive(true);
         ShowLine();
@@ -120,44 +155,80 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
-        dialogueFinished = true;
+        dialogueActive = false;
         dialogueBox.SetActive(false);
 
-        if (!showingFeedback)
+        if (showingFeedback)
         {
-            // Intro dialogue finished, show answer buttons
-            SetObjectsActive(answerButtons, true);
-            return;
-        }
-
-        if (lastAnswerWasCorrect)
-        {
-            // Correct answer finished, show next button
-            if (nextButton != null)
+            if (lastAnswerWasCorrect)
             {
-                nextButton.SetActive(true);
+                currentQuestionIndex++;
+                StartTeachingForCurrentQuestion();
+            }
+            else
+            {
+                ShowQuestionUI();
             }
         }
         else
         {
-            // Wrong answer finished, let player try again
-            SetObjectsActive(answerButtons, true);
+            ShowQuestionUI();
         }
     }
 
-    public void SelectAnswer(bool isCorrect)
+    private void ShowQuestionUI()
     {
-        SetObjectsActive(answerButtons, false);
+        Question currentQuestion = questions[currentQuestionIndex];
 
-        lastAnswerWasCorrect = isCorrect;
+        questionBox.SetActive(true);
+        questionText.text = currentQuestion.questionText;
 
-        if (isCorrect)
+        answerButtons[0].SetActive(true);
+        answerButtons[1].SetActive(true);
+        answerButtons[2].SetActive(true);
+
+        answerButtonTexts[0].text = currentQuestion.answerA;
+        answerButtonTexts[1].text = currentQuestion.answerB;
+        answerButtonTexts[2].text = currentQuestion.answerC;
+    }
+
+    private void HideQuestionUI()
+    {
+        if (questionBox != null)
         {
-            StartDialogue(correctDialogueLines, true);
+            questionBox.SetActive(false);
+        }
+
+        SetObjectsActive(answerButtons, false);
+    }
+
+    public void SelectAnswer(int answerIndex)
+    {
+        Question currentQuestion = questions[currentQuestionIndex];
+
+        HideQuestionUI();
+
+        lastAnswerWasCorrect = answerIndex == currentQuestion.correctAnswerIndex;
+        showingFeedback = true;
+
+        if (lastAnswerWasCorrect)
+        {
+            StartDialogue(currentQuestion.correctFeedbackLines);
         }
         else
         {
-            StartDialogue(incorrectDialogueLines, true);
+            StartDialogue(currentQuestion.incorrectFeedbackLines);
+        }
+    }
+
+    private void EndAllQuestions()
+    {
+        dialogueBox.SetActive(false);
+        HideQuestionUI();
+
+        if (nextButton != null)
+        {
+            nextButton.SetActive(true);
         }
     }
 

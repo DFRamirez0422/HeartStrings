@@ -3,28 +3,46 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerScript : MonoBehaviour
 {
-    [SerializeField] private string sceneName1;
-    [SerializeField] private string sceneName2;
-    [SerializeField] private string sceneName3;
-    [SerializeField] private string sceneName4;
+    [SerializeField] private string loadMainMenu;
+    [SerializeField] private string loadSettings;
+    [SerializeField] private string loadLevel1;
+    [SerializeField] private string loadLevel2;
+    [SerializeField] private string loadLevel3;
+    [SerializeField] private string loadEnding;
+    [SerializeField] private string loadCredits;
 
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(sceneName1);
+        SceneManager.LoadScene(loadMainMenu);
     }
 
     public void LoadSettings()
     {
-        SceneManager.LoadScene(sceneName2);
+        SceneManager.LoadScene(loadSettings);
     }
 
     public void LoadLevel1()
     {
-        SceneManager.LoadScene(sceneName3);
+        SceneManager.LoadScene(loadLevel1);
     }
 
-    public void LoadLevel1Test()
+    public void LoadLevel2()
     {
-        SceneManager.LoadScene(sceneName4);
+        SceneManager.LoadScene(loadLevel2);
+    }
+
+    public void LoadLevel3()
+    {
+        SceneManager.LoadScene(loadLevel3);
+    }
+
+    public void LoadEnding()
+    {
+        SceneManager.LoadScene(loadEnding);
+    }
+
+    public void LoadCredits()
+    {
+        SceneManager.LoadScene(loadCredits);
     }
 }

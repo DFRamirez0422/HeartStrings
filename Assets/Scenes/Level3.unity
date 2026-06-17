@@ -553,7 +553,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f4ef68040c47164458bb88d6d46bbd5c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9cec36a6c8f9a83469a6bcc18ccd4a90, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1401,7 +1401,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 98838884}
         m_TargetAssemblyTypeName: SceneManagerScript, Assembly-CSharp
-        m_MethodName: LoadLevel2
+        m_MethodName: LoadCredits
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
