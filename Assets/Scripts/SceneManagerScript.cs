@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerScript : MonoBehaviour
 {
+    [Header("Scene Names")]
     [SerializeField] private string loadMainMenu;
     [SerializeField] private string loadSettings;
     [SerializeField] private string loadLevel1;
@@ -10,6 +11,49 @@ public class SceneManagerScript : MonoBehaviour
     [SerializeField] private string loadLevel3;
     [SerializeField] private string loadEnding;
     [SerializeField] private string loadCredits;
+
+    [Header("Main Menu Button Groups")]
+    [SerializeField] private GameObject mainMenuButtons;
+    [SerializeField] private GameObject levelSelectButtons;
+
+    private void Start()
+    {
+        if (mainMenuButtons != null)
+        {
+            mainMenuButtons.SetActive(true);
+        }
+
+        if (levelSelectButtons != null)
+        {
+            levelSelectButtons.SetActive(false);
+        }
+    }
+
+    public void ShowLevelSelect()
+    {
+        if (mainMenuButtons != null)
+        {
+            mainMenuButtons.SetActive(false);
+        }
+
+        if (levelSelectButtons != null)
+        {
+            levelSelectButtons.SetActive(true);
+        }
+    }
+
+    public void BackToMainButtons()
+    {
+        if (levelSelectButtons != null)
+        {
+            levelSelectButtons.SetActive(false);
+        }
+
+        if (mainMenuButtons != null)
+        {
+            mainMenuButtons.SetActive(true);
+        }
+    }
 
     public void LoadMainMenu()
     {
@@ -44,5 +88,11 @@ public class SceneManagerScript : MonoBehaviour
     public void LoadCredits()
     {
         SceneManager.LoadScene(loadCredits);
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quit button pressed.");
+        Application.Quit();
     }
 }

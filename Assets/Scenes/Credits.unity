@@ -466,7 +466,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1501808074}
         m_TargetAssemblyTypeName: SceneManagerScript, Assembly-CSharp
-        m_MethodName: LoadSettings
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -852,7 +852,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 33
+    m_FontSize: 24
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
@@ -908,6 +908,8 @@ MonoBehaviour:
   loadLevel3: Level3
   loadEnding: Ending
   loadCredits: Credits
+  mainMenuButtons: {fileID: 0}
+  levelSelectButtons: {fileID: 0}
 --- !u!4 &1501808075
 Transform:
   m_ObjectHideFlags: 0
