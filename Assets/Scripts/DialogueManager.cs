@@ -7,6 +7,9 @@ public class DialogueManager : MonoBehaviour
     [System.Serializable]
     public class Question
     {
+        [Header("Visual")]
+        public GameObject visualGroup;
+
         [Header("Teaching Dialogue Before Question")]
         [TextArea(2, 5)]
         public string[] teachingLines;
@@ -42,6 +45,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] answerButtons;
     [SerializeField] private Text[] answerButtonTexts;
 
+    [Header("Visual Groups")]
+    [SerializeField] private GameObject[] allVisualGroups;
+
     [Header("Next Button")]
     [SerializeField] private GameObject nextButton;
 
@@ -71,6 +77,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         HideQuestionUI();
+        HideAllVisualGroups();
 
         currentQuestionIndex = 0;
         StartTeachingForCurrentQuestion();
@@ -98,6 +105,9 @@ public class DialogueManager : MonoBehaviour
         }
 
         showingFeedback = false;
+
+        ShowVisualGroup(questions[currentQuestionIndex].visualGroup);
+
         StartDialogue(questions[currentQuestionIndex].teachingLines);
     }
 
@@ -221,10 +231,32 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void ShowVisualGroup(GameObject visualGroupToShow)
+    {
+        HideAllVisualGroups();
+
+        if (visualGroupToShow != null)
+        {
+            visualGroupToShow.SetActive(true);
+        }
+    }
+
+    private void HideAllVisualGroups()
+    {
+        foreach (GameObject visualGroup in allVisualGroups)
+        {
+            if (visualGroup != null)
+            {
+                visualGroup.SetActive(false);
+            }
+        }
+    }
+
     private void EndAllQuestions()
     {
         dialogueBox.SetActive(false);
         HideQuestionUI();
+        HideAllVisualGroups();
 
         if (nextButton != null)
         {
