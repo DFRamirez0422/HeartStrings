@@ -749,6 +749,14 @@ MonoBehaviour:
   questions:
   - visualGroup: {fileID: 1088209502}
     teachingLines:
+    - "Daniel saw a beautiful girl while the town \nprepared for the Day of the Dead
+      festival.\r\n"
+    - "He wanted to speak to her, \nbut the words would not come.\nHe picks up the
+      guitar he was \ngiven but never learned to play."
+    - "In this level, you will help Daniel learn \nthe basics of rhythm, notes, rests,
+      and 4/4 time.\nIf he can learn how to count the beats, he can \ntake the first
+      step toward playing the serenade."
+    - Let's Begin!
     - "A music staff is where notes are written. \nIt has five horizontal lines and
       four spaces. \nNotes can be placed on the lines or in the spaces."
     questionText: What is a music staff used for?

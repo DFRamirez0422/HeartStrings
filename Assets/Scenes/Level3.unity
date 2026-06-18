@@ -1742,20 +1742,29 @@ MonoBehaviour:
   questions:
   - visualGroup: {fileID: 531628974}
     teachingLines:
-    - Hint 1
-    questionText: Question 1
-    answerA: YES
-    answerB: NO
-    answerC: NO
-    correctAnswerIndex: 0
+    - "Night falls over the Day of the Dead festival.\nDaniel stands beneath Mariana\u2019s
+      balcony \nwith his face painted like a skull. Candles, \nmarigolds, and festival
+      lights glow around him."
+    - "The paint hides his fear, but the song \nmust show his heart. This is his
+      chance \nto say what he could never say out loud."
+    - "In this final level, you will help Daniel complete \nthe serenade. Use notes,
+      rests, chords, and \nsong sections to build the full song."
+    - "Each measure must still follow the rules of 4/4 \ntime. Choose the best intro,
+      verses, chorus,and\noutro so the song can be played from the heart."
+    - Let's Begin!
+    - "The intro begins the song.\r\nFor this serenade, the intro should \nuse notes
+      only and total 4 beats."
+    questionText: Which measure works best for the intro?
+    answerA: C Major R R
+    answerB: C D E G
+    answerC: C R C Major
+    correctAnswerIndex: 1
     secondCorrectAnswerIndex: -1
     correctFeedbackLines:
-    - Correct!
+    - "Correct!\nThe intro uses notes only, \nand C D E G adds up to 4 beats."
     incorrectFeedbackLines:
-    - 'Not quite.
-
-
-      Try again.'
+    - "Not quite.\nThe intro should use notes \nonly and still add up to 4 beats.\nTry
+      again."
   - visualGroup: {fileID: 1847045269}
     teachingLines:
     - Hint 2
